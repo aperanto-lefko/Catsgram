@@ -39,6 +39,10 @@ public class PostService {
         return posts.values();
     }
 
+    public Optional<Post> findById(long id) {
+      return Optional.of(posts.get(id));
+    }
+
     public Collection<Post> findLastTen() { //исправить, чтобы выдавала последние 10
         if (posts.size() <= 10) {
             return posts.values();
@@ -56,12 +60,12 @@ public class PostService {
         Optional<Integer> size = Optional.of(Integer.parseInt(allParam.get("size")));
         Optional<Integer> from = Optional.of(Integer.parseInt(allParam.get("from")));
         Optional<SortOrder> sorting = Optional.ofNullable(SortOrder.sortingMethod(allParam.get("sort")));
-        if (from.get() < 0 || size.get() < 0 ) {
+        if (from.get() < 0 || size.get() < 0) {
             throw new ConditionsNotMetException("Поле from/size не может быть отрицательным ");
         }
         Collection<Post> selectedPosts;
-        if(size.get()==0) {
-             selectedPosts = posts.keySet().stream()
+        if (size.get() == 0) {
+            selectedPosts = posts.keySet().stream()
                     .filter(id -> id >= from.get())
                     .map(posts::get)
                     .toList();

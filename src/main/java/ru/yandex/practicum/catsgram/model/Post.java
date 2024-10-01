@@ -19,6 +19,7 @@ public class Post {
     String description; //текстовое описание сообщения
     Instant postDate; //дата и время создания сообщения
 
+
 }
 /*
 "authorId":1,
