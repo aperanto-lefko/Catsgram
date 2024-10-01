@@ -2,6 +2,7 @@ package ru.yandex.practicum.catsgram.controller;
 
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
 import ru.yandex.practicum.catsgram.model.Post;
@@ -40,6 +41,7 @@ public class PostController {
 //добавить @Valid
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Post create(@RequestBody Post post) {
         return postService.create(post);
     }
