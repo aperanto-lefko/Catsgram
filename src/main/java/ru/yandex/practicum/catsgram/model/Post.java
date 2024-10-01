@@ -20,3 +20,7 @@ public class Post {
     Instant postDate; //дата и время создания сообщения
 
 }
+/*
+"authorId":1,
+ "description": "Сказка о царе Салтане"
+ */

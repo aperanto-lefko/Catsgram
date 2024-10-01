@@ -20,3 +20,9 @@ public class User {
     String password; //пароль пользователя
     Instant registrationDate; //дата и время регистрации
 }
+/*
+"username": "Иван Петров",
+"email": "mail@mail.ru",
+"password": 12345
+
+ */
