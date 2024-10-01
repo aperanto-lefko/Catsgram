@@ -25,9 +25,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ImageService {
+
     private final PostService postService;
     private final Map<Long, Image> images = new HashMap<>();
-    @Value("${catsgram.image-directory}")
+
+    //@Value("${catsgram.image-directory}")
 
     private final String imageDirectory = "D:\\Work\\YandexPracticum\\CatsGram\\фото сatsgram";
     // получение данных об изображениях указанного поста
