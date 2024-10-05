@@ -5,8 +5,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.apache.tomcat.util.http.parser.Cookie;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.yandex.practicum.catsgram.exception.ConditionsNotMetException;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
+import ru.yandex.practicum.catsgram.exception.ParameterNotValidException;
 import ru.yandex.practicum.catsgram.model.Post;
 import jakarta.validation.constraints.Positive;
 
@@ -60,8 +62,14 @@ public class PostService {
         Optional<Integer> size = Optional.of(Integer.parseInt(allParam.get("size")));
         Optional<Integer> from = Optional.of(Integer.parseInt(allParam.get("from")));
         Optional<SortOrder> sorting = Optional.ofNullable(SortOrder.sortingMethod(allParam.get("sort")));
-        if (from.get() < 0 || size.get() < 0) {
-            throw new ConditionsNotMetException("Поле from/size не может быть отрицательным ");
+        if (from.get() < 0 ) {
+            throw new ParameterNotValidException("from", "Поле from не может быть отрицательным ");
+        }
+        if(size.get() < 0) {
+            throw new ParameterNotValidException("size", "Поле size не может быть отрицательным ");
+        }
+        if(sorting.get() != SortOrder.ASCENDING && sorting.get()!= SortOrder.DESCENDING){
+            throw new ParameterNotValidException("sort", "Поле sort задано некорректно");
         }
         Collection<Post> selectedPosts;
         if (size.get() == 0) {
