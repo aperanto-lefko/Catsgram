@@ -18,25 +18,28 @@ public class ErrorHandler {
     public ErrorResponse handleNotFound(NotFoundException e) {
         return new ErrorResponse("\"error\": " + e.getMessage());
     }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT) //409
     public ErrorResponse handleDublicateData(DuplicatedDataException e) {
         return new ErrorResponse(e.getMessage());
     }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) //422
     public ErrorResponse handleConditionsNotMet(ConditionsNotMetException e) {
         return new ErrorResponse(e.getMessage());
     }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST) //400
     public ErrorResponse handleParameterNotValid(ParameterNotValidException e) {
-        return new ErrorResponse(" Некорректное значение параметра  "+ e.getParameter() + " : " + e.getReason());
+        return new ErrorResponse(" Некорректное значение параметра  " + e.getParameter() + " : " + e.getReason());
     }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //500
     public ErrorResponse handleThroable(Throwable e) {
         return new ErrorResponse("Произошла непредвиденная ошибка." + e.getMessage());
     }
-
 }

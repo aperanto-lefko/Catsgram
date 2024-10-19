@@ -1,16 +1,11 @@
 package ru.yandex.practicum.catsgram.service;
 
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import org.apache.tomcat.util.http.parser.Cookie;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.yandex.practicum.catsgram.exception.ConditionsNotMetException;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
 import ru.yandex.practicum.catsgram.exception.ParameterNotValidException;
 import ru.yandex.practicum.catsgram.model.Post;
-import jakarta.validation.constraints.Positive;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -42,7 +37,7 @@ public class PostService {
     }
 
     public Optional<Post> findById(long id) {
-      return Optional.of(posts.get(id));
+        return Optional.of(posts.get(id));
     }
 
     public Collection<Post> findLastTen() { //исправить, чтобы выдавала последние 10
@@ -62,13 +57,13 @@ public class PostService {
         Optional<Integer> size = Optional.of(Integer.parseInt(allParam.get("size")));
         Optional<Integer> from = Optional.of(Integer.parseInt(allParam.get("from")));
         Optional<SortOrder> sorting = Optional.ofNullable(SortOrder.sortingMethod(allParam.get("sort")));
-        if (from.get() < 0 ) {
+        if (from.get() < 0) {
             throw new ParameterNotValidException("from", "Поле from не может быть отрицательным ");
         }
-        if(size.get() < 0) {
+        if (size.get() < 0) {
             throw new ParameterNotValidException("size", "Поле size не может быть отрицательным ");
         }
-        if(sorting.get() != SortOrder.ASCENDING && sorting.get()!= SortOrder.DESCENDING){
+        if (sorting.get() != SortOrder.ASCENDING && sorting.get() != SortOrder.DESCENDING) {
             throw new ParameterNotValidException("sort", "Поле sort задано некорректно");
         }
         Collection<Post> selectedPosts;

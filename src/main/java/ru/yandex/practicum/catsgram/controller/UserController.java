@@ -24,11 +24,12 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping({"/users/","/users/{id}"})
+    @GetMapping({"/users/", "/users/{id}"})
     public User searhUser(@PathVariable Optional<String> id) {
         if (id.isPresent()) {
             return userService.searchUserById(id.get());
-        } throw new NotFoundException("id не указан");
+        }
+        throw new NotFoundException("id не указан");
     }
 
     @PostMapping

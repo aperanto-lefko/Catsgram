@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.catsgram.exception.ConditionsNotMetException;
 import ru.yandex.practicum.catsgram.exception.DuplicatedDataException;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
-import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
 
 import java.time.Instant;
@@ -66,23 +65,26 @@ public class UserService {
         }
         throw new NotFoundException("Пользователь с id = " + newUser.getId() + " не найден");
     }
-public Optional<User> findUserById(Long idUser){
+
+    public Optional<User> findUserById(Long idUser) {
         Optional<User> searchUser = users.keySet()
                 .stream()
-                .filter(id->id==idUser)
+                .filter(id -> id == idUser)
                 .map(users::get)
                 .findFirst();
-             if (searchUser.isEmpty()){
+        if (searchUser.isEmpty()) {
             throw new ConditionsNotMetException("«Автор с id = " + idUser + " не найден");
         }
         return searchUser;
-}
+    }
+
     public User searchUserById(String id) {
-          Long idNew = Long.parseLong(id);
-            if (users.containsKey(idNew)) {
-                return users.get(idNew);
-            } throw new NotFoundException("Пост с id = " + id + " не найден");
-          }
+        Long idNew = Long.parseLong(id);
+        if (users.containsKey(idNew)) {
+            return users.get(idNew);
+        }
+        throw new NotFoundException("Пост с id = " + id + " не найден");
+    }
 
     private long getNextId() {
         long currentMaxId = users.keySet()

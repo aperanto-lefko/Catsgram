@@ -1,7 +1,6 @@
 package ru.yandex.practicum.catsgram.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +31,7 @@ public class ImageService {
     //@Value("${catsgram.image-directory}")
 
     private final String imageDirectory = "D:\\Work\\YandexPracticum\\CatsGram\\фото сatsgram";
+
     // получение данных об изображениях указанного поста
     public List<Image> getPostImages(long postId) {
         return images.values()
@@ -39,6 +39,7 @@ public class ImageService {
                 .filter(image -> image.getPostId() == postId)
                 .collect(Collectors.toList());
     }
+
     private Path saveFile(MultipartFile file, Post post) {
         try {
             // формирование уникального названия файла на основе текущего времени и расширения оригинального файла
@@ -61,6 +62,7 @@ public class ImageService {
             throw new RuntimeException(e);
         }
     }
+
     // сохранение списка изображений, связанных с указанным постом
     public List<Image> saveImages(long postId, List<MultipartFile> files) {
         return files.stream().map(file -> saveImage(postId, file)).collect(Collectors.toList());
@@ -89,6 +91,7 @@ public class ImageService {
 
         return image;
     }
+
     public ImageData getImageData(long imageId) {
         if (!images.containsKey(imageId)) {
             throw new NotFoundException("Изображение с id = " + imageId + " не найдено");
@@ -115,7 +118,7 @@ public class ImageService {
         }
     }
 
-private long getNextId() {
+    private long getNextId() {
         long currentMaxId = images.keySet()
                 .stream()
                 .mapToLong(id -> id)

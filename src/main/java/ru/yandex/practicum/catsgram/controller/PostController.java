@@ -1,7 +1,6 @@
 package ru.yandex.practicum.catsgram.controller;
 
 
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
@@ -21,22 +20,24 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping({"/posts/","/posts/{id}"})
+    @GetMapping({"/posts/", "/posts/{id}"})
     public Post findPost(@PathVariable Optional<String> id) {
         if (id.isPresent()) {
             return postService.searchPostById(id.get());
         }
         throw new NotFoundException("id не указан");
     }
+
     /*@GetMapping
     public Collection<Post> findAll() {
         return postService.findAll();
     }*/
     @GetMapping
-    public Collection<Post> findAll(@RequestParam (required = false) Map<String, String> allParam) {
-        if(allParam.isEmpty()) {
+    public Collection<Post> findAll(@RequestParam(required = false) Map<String, String> allParam) {
+        if (allParam.isEmpty()) {
             return postService.findLastTen();
-        } return postService.findPostParam(allParam);
+        }
+        return postService.findPostParam(allParam);
     }
 //добавить @Valid
 
